@@ -56,8 +56,9 @@ def algorithm(no_of_test, activity_cases, numbers):
                 if occupance > 1:
                     continue
                 string = diff_person(string)
-                end1 = curr_end
-                end2 = next_end
+                if i == 0:
+                    end1 = curr_end
+                    end2 = next_end
 
 
                 # if next_end < curr_end: # within
@@ -103,3 +104,43 @@ def algorithm(no_of_test, activity_cases, numbers):
         print("Case #{}: {}".format(i+1, string))
             
 algorithm(no_of_test, activity_cases, numbers)
+
+"""
+       for j in range(numbers[i]-1):
+            curr_start, curr_end = map(int, current_case[j])
+            next_start, next_end = map(int, current_case[j+1])
+
+            if i==0 and next_start >= curr_end:
+                occupance += 0
+                string = same_person(string)
+                c_end = next_end if list(string)[-1] == 'C' else j_end = next_end
+            else: # if next_start < curr_end:
+                occupance += 1
+                string = diff_person(string)
+                c_end = curr_end and j_end = next_end if list(string)[-1] == 'C' else j_end = curr_end and c_end = next_end
+
+            if i != 0:
+                if next_start > c_end and next_start > j_end:
+                    string = same_person(string)
+                    c_end = next_end if list(string)[-1] == 'C' else j_end = next_end
+
+                if next_start < c_end and next_start < j_end:
+                    impossible = True
+
+                if next_start < c_end and next_start > j_end:
+                    # j needs to finish, j can start new!, c_end unchanged
+                    string = same_person(string)
+                    j_end = next_end
+                    
+                if next_start > c_end and next_start < j_end:
+                    # c needs to finish, c can start new!, j_end unchanged
+                    string = same_person(string)
+                    c_end = next_end
+
+                
+
+                # if next_end < curr_end: # within
+                #     most_end = curr_end
+                # else:
+                #     most_end = next_end
+"""
