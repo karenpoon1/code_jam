@@ -10,18 +10,13 @@ def rev_comp(array):
 def remove_none(array):
     return [value for value in array if value != None]
 
-def is_anti_reverse(array):
+def anti_reverse(array):
     array = remove_none(array)
     return array == reverse(array)
 
-def is_anti_revcomp(array):
+def anti_revcomp(array):
     array = remove_none(array)
     return array == rev_comp(array)
-
-# array = [1,0,0,None,None,None,None,0,0,1] #anti_reverse (reverse = nothing, complement = rev_comp)
-# array = [1,0,0,1,None,None,0,1,1,0] #anti_revcomp (reverse = complement, rev_comp = nothing)
-# array = [1,1,None, None, 1,1]
-# print(complement(array))
 
 t, b = map(int, input().split())
 
@@ -40,19 +35,13 @@ for test_case in range(t):
         print(i+1)
         query_counter += 1
         array[i] = int(input())
-        # print(array)
-        # print("query counter: ", query_counter, query_counter % 10)
 
         print(b-i)
         query_counter += 1
         array[-(i+1)] = int(input())
-        # print(array)
-        # print("query counter: ", query_counter, query_counter % 10)
 
         i += 1
         checked_until = i
-        # print("checked until:", checked_until)
-        # print("query counter", query_counter)
 
         if not None in array:
             # got everything, submit answer!
@@ -61,19 +50,15 @@ for test_case in range(t):
             break
 
         if not random_pattern:
-            mirrored = is_anti_reverse(array)
-            anti_mirrored = is_anti_revcomp(array)
-            if not mirrored and not anti_mirrored:
+            if not anti_reverse(array) and not anti_revcomp(array):
                 random_pattern = True
                 random_start_pos = i - 1
 
-        if query_counter % 10 == 0: # random quantisation
-            # print("query counter: ", query_counter)
+        if query_counter % 10 == 0: # random fluctuation
             if random_pattern:
                 # check random_start_pos and the one before
                 j = random_start_pos
                 new_array = [array[j-1], array[j], array[-(j+1)], array[-j]]
-                # print("newarray", new_array)
 
                 print(random_start_pos)
                 query_counter += 1
