@@ -19,20 +19,26 @@ def is_anti_revcomp(array):
     return array == rev_comp(array)
 
 
-array = [1,0,0,None,None,None,None,0,0,1] #anti_reverse (reverse = nothing, complement = rev_comp)
-array = [1,0,0,1,None,None,0,1,1,0] #anti_revcomp (reverse = complement, rev_comp = nothing)
-array = [1,1,1,1]
-if not None in array:
-    print(array)
+# array = [1,0,0,None,None,None,None,0,0,1] #anti_reverse (reverse = nothing, complement = rev_comp)
+# array = [1,0,0,1,None,None,0,1,1,0] #anti_revcomp (reverse = complement, rev_comp = nothing)
+# array = [1,1,None, None, 1,1]
+# # if not None in array:
+# #     print(array)
+# mirrored = False
+# i=0
+# while i<3:
+#     mirrored = is_anti_reverse(array)
+#     print(mirrored)
+#     i+=1 
 
 t, b = map(int, input().split())
 
 for test_case in range(t):
     array = [None] * b
 
-    reverse = False
-    complement = False
-    rev_comp = False
+    # reverse = False
+    # complement = False
+    # rev_comp = False
     nothing = False
 
     mirrored = None 
@@ -41,17 +47,19 @@ for test_case in range(t):
 
     query_counter = 0
     i = 0
+
     while query_counter < 150:
 
         print(i+1)
         query_counter += 1
-        array[i] = input()
+        array[i] = int(input())
 
         print(b-i)
         query_counter += 1
-        array[-(i+1)] = input()
+        array[-(i+1)] = int(input())
 
         i += 1
+        checked_until = i
 
         if not random_pattern:
             mirrored = is_anti_reverse(array)
@@ -67,63 +75,72 @@ for test_case in range(t):
 
                 print(random_start_pos)
                 query_counter += 1
-                check1 = input()
+                check1 = int(input())
 
                 print(random_start_pos-1)
                 query_counter += 1
-                check2 = input()
+                check2 = int(input())
 
                 if check1 == new_array[0] and check2 == new_array[1]:
-                    nothing = True
+                    # nothing = True
+                    pass
                 elif check1 == new_array[-1] and check2 == new_array[-2]:
-                    reverse = True
+                    # reverse = True
                     array = reverse(array)
                 elif check1 != new_array[0] and check2 != new_array[1]:
-                    complement = True
+                    # complement = True
                     array = complement(array)
                 else:
-                    rev_comp = True
+                    # rev_comp = True
                     array = rev_comp(array)
             
             elif mirrored:
-                
 
+                print(checked_until)
+                query_counter += 1
+                check1 = int(input())
+
+                print(-checked_until)
+                query_counter += 1
+                check2 = int(input())
+
+                if check1 == array[checked_until]:
+                    # reverse or nothing
+                    nothing = True
+                else:
+                    # complement or rev_comp
+                    # complement = True
+                    array = complement(array)
+            
+            else: # anti_mirrored
+                
+                print(checked_until)
+                query_counter += 1
+                check1 = int(input())
+
+                print(-checked_until)
+                query_counter += 1
+                check2 = int(input())
+
+                if check1 == array[checked_until]:
+                    # rev_comp or nothing
+                    # nothing = True
+                    pass
+                else:
+                    # reverse or complement
+                    # complement = True
+                    array = complement(array)
 
         if not None in array:
             # got everything, submit answer!
             print(array)
-
-                
-
-                
-        reverse = False
-        complement = False
-        rev_comp = False
+            break
+    
+        # reverse = False
+        # complement = False
+        # rev_comp = False
         nothing = False
-
-
-
-        if i == b/2:
-            i = 0
-        
-
-        
-
-
-
-#         if i < 5:
-#             print(i+1)
-#             array[i] = input()
-#         else:
-#             print(-(b-i))
-#             array[-(b-i)] = input()
-
-#     # check mirror
-#     if array[:5] == reverse(array[-5:])
-#         mirror = True # this section of array is immune to reverse
     
-#     if array[:5] == complement(array[-5:])
-#         anti_mirror = True # this section of array is immune to complement
-    
-#     if array[:5] == rev_comp(array[-5:])
-#         anti_revcomp = True # this section of array is immune to rev_comp
+    response = str(input())
+    if response == 'N':
+        break
